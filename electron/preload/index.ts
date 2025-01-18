@@ -1,5 +1,7 @@
 import { ipcRenderer, contextBridge } from "electron";
 
+export type SendChannels = "open-team-window";
+
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", {
   on(...args: Parameters<typeof ipcRenderer.on>) {
@@ -12,13 +14,11 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     const [channel, ...omit] = args;
     return ipcRenderer.off(channel, ...omit);
   },
-  send(...args: Parameters<typeof ipcRenderer.send>) {
-    const [channel, ...omit] = args;
-    return ipcRenderer.send(channel, ...omit);
+  send(channel: SendChannels, ...args: any[]) {
+    return ipcRenderer.send(channel, ...args);
   },
-  invoke(...args: Parameters<typeof ipcRenderer.invoke>) {
-    const [channel, ...omit] = args;
-    return ipcRenderer.invoke(channel, ...omit);
+  invoke(channel: SendChannels, ...args: any[]) {
+    return ipcRenderer.invoke(channel, ...args);
   },
 
   // You can expose other APTs you need here.

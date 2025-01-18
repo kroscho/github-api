@@ -2,6 +2,11 @@ export interface GetUserRequest {
   userName: string;
 }
 
+export interface GetUsersRequest {
+  since?: number;
+  per_page?: number;
+}
+
 export interface BaseUser {
   login: string; // Логин пользователя
   id: number; // Уникальный идентификатор пользователя

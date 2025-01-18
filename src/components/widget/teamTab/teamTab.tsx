@@ -7,13 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 import TeamImg from "@/assets/images/team.webp";
+import { sendIPC } from "@/utils";
 
-export const Team = () => {
+export const TeamTab = () => {
+  const handleOpenTeamWindow = () => {
+    sendIPC("open-team-window");
+  };
+
   return (
     <Card sx={{ minWidth: 300, maxWidth: 345 }}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="team img"
         height="140"
         image={TeamImg}
         sx={{ objectFit: "contain" }}
@@ -27,7 +32,9 @@ export const Team = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Редактировать</Button>
+        <Button size="small" onClick={handleOpenTeamWindow}>
+          Редактировать
+        </Button>
       </CardActions>
     </Card>
   );

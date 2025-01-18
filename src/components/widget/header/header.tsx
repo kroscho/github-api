@@ -12,7 +12,7 @@ const HeaderContainer = styled(AppBar)({
   justifyContent: "center",
   position: "sticky",
   top: 0,
-  zIndex: 1,
+  zIndex: 100,
 });
 
 const Logo = styled("img")({

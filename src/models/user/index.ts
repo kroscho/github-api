@@ -1,1 +1,6 @@
-export { type GetUserRequest, type User, type Following } from "./api";
+export {
+  type GetUserRequest,
+  type GetUsersRequest,
+  type User,
+  type Following,
+} from "./api";

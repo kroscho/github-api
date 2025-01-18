@@ -1,0 +1,1 @@
+export { TeamTab } from "./teamTab";

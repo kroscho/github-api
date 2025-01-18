@@ -1,0 +1,97 @@
+body {
+  font-family: "Inter-Regular", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: rgba(32, 42, 45, 0.72) rgba(0, 0, 0, 0.1);
+  color: #1f2328;
+}
+
+::-moz-focus-inner {
+  border: none;
+}
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+body,
+html,
+#root {
+  height: 100%;
+  /* overflow: hidden; */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
+}
+
+input,
+button {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Стилизация для WebKit-браузеров */
+::-webkit-scrollbar {
+  width: 4px; /* Вертикальная полоса прокрутки */
+  height: 4px; /* Горизонтальная полоса прокрутки */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1); /* Цвет фона трека */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(32, 42, 45, 0.72); /* Цвет ползунка */
+  border-radius: 4px; /* Закругление углов ползунка */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(44, 53, 62, 0.72); /* Цвет ползунка при наведении */
+}

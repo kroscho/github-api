@@ -1,0 +1,1 @@
+export { Followings } from "./followings";

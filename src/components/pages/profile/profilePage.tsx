@@ -7,6 +7,7 @@ import { Repositories } from "@/components/widget/repositories";
 import { ProfileTabEnum } from "@/constants";
 import { ProfileInfo, ProfileTabs } from "./components";
 import { Followings } from "@/components/widget/followings";
+import { Team } from "@/components/widget/team";
 
 const ProfileContainer = styled("div")({
   display: "flex",
@@ -45,6 +46,7 @@ export const ProfilePage = () => {
       <ProfileTabs activeTab={activeTab} onChangeTab={onChangeTab} />
       {activeTab === ProfileTabEnum.REPOSITORIES && <Repositories />}
       {activeTab === ProfileTabEnum.FOLLOWING && <Followings />}
+      {activeTab === ProfileTabEnum.TEAM && <Team />}
     </ProfileContainer>
   );
 };

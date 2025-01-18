@@ -6,7 +6,7 @@ import { Following } from "@/models/user";
 import { FollowingCard } from "@/components/dummies/followingCard";
 
 const FollowingsContainer = styled("div")({
-  padding: "32px 0",
+  paddingBottom: "32px",
   width: "100%",
 });
 

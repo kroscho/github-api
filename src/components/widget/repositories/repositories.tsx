@@ -6,7 +6,7 @@ import { MY_GITHUB_USERNAME } from "@/config/consts";
 import { RepositoriesItem } from "./components/repositoriesItem";
 
 const RepositoriesContainer = styled("div")({
-  padding: "32px 0",
+  paddingBottom: "32px",
   width: "100%",
 });
 

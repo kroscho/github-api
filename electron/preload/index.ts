@@ -1,6 +1,10 @@
 import { ipcRenderer, contextBridge } from "electron";
 
-export type SendChannels = "open-team-window";
+export type SendChannels =
+  | "open-team-window"
+  | "add-member"
+  | "remove-member"
+  | "get-members";
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", {
@@ -13,6 +17,9 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   off(...args: Parameters<typeof ipcRenderer.off>) {
     const [channel, ...omit] = args;
     return ipcRenderer.off(channel, ...omit);
+  },
+  sendSync(channel: SendChannels, ...args: any[]) {
+    return ipcRenderer.sendSync(channel, ...args);
   },
   send(channel: SendChannels, ...args: any[]) {
     return ipcRenderer.send(channel, ...args);

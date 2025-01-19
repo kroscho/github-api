@@ -5,6 +5,8 @@ import path from "node:path";
 import os from "node:os";
 import { update } from "./update";
 import { SendChannels } from "electron/preload";
+import { getMembers, saveMembersToFile } from "./members";
+import { User } from "@/models/user";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,6 +26,14 @@ process.env.APP_ROOT = path.join(__dirname, "../..");
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 export const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL;
+
+const RESOURCES_PATH = app.isPackaged
+  ? path.join(process.resourcesPath, "assets")
+  : path.join(__dirname, "../../assets");
+
+const getAssetPath = (...paths: string[]): string => {
+  return path.join(RESOURCES_PATH, ...paths);
+};
 
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   ? path.join(process.env.APP_ROOT, "public")
@@ -49,8 +59,8 @@ const indexHtml = path.join(RENDERER_DIST, "index.html");
 async function createWindow() {
   mainWindow = new BrowserWindow({
     title: "Profile window",
-    width: 900,
-    height: 750,
+    width: 1280,
+    height: 850,
     icon: path.join(process.env.VITE_PUBLIC, "favicon.ico"),
     webPreferences: {
       preload,
@@ -89,6 +99,12 @@ async function createWindow() {
 
   // Auto update
   update(mainWindow);
+
+  mainWindow.on("close", () => {
+    if (teamWindow) {
+      teamWindow.close();
+    }
+  });
 }
 
 app.whenReady().then(createWindow);
@@ -115,29 +131,12 @@ app.on("activate", () => {
   }
 });
 
-// // New window example arg: new windows url
-// ipcMain.handle("open-win", (_, arg) => {
-//   const childWindow = new BrowserWindow({
-//     webPreferences: {
-//       preload,
-//       nodeIntegration: true,
-//       contextIsolation: false,
-//     },
-//   });
-
-//   if (VITE_DEV_SERVER_URL) {
-//     childWindow.loadURL(`${VITE_DEV_SERVER_URL}#${arg}`);
-//   } else {
-//     childWindow.loadFile(indexHtml, { hash: arg });
-//   }
-// });
-
 const ipcMainOn = (
   channel: SendChannels,
   listener: (event: IpcMainEvent, ...args: any[]) => void
 ) => ipcMain.on(channel, listener);
 
-ipcMainOn("open-team-window", async () => {
+ipcMainOn("open-team-window", (event) => {
   if (teamWindow) {
     // Если окно уже открыто, просто фокусируем его
     teamWindow.focus();
@@ -145,8 +144,8 @@ ipcMainOn("open-team-window", async () => {
     // Создаем новое окно
     teamWindow = new BrowserWindow({
       title: "Team Window",
-      width: 900,
-      height: 750,
+      width: 1280,
+      height: 850,
       icon: path.join(process.env.VITE_PUBLIC, "favicon.ico"),
       webPreferences: {
         preload,
@@ -159,6 +158,7 @@ ipcMainOn("open-team-window", async () => {
 
     if (VITE_DEV_SERVER_URL) {
       teamWindow.loadURL(`${VITE_DEV_SERVER_URL}/team`);
+      teamWindow.webContents.openDevTools();
     } else {
       teamWindow.loadFile(path.join(RENDERER_DIST, "team.html"));
     }
@@ -167,4 +167,30 @@ ipcMainOn("open-team-window", async () => {
       teamWindow = null;
     });
   }
+  event.returnValue = true;
+});
+
+ipcMainOn("add-member", (event, userArgs: User[]) => {
+  if (userArgs.length === 0) return;
+  const user = userArgs[0];
+  const members = getMembers(getAssetPath);
+  members.push(user);
+  saveMembersToFile(getAssetPath, members);
+  event.returnValue = true;
+});
+
+ipcMainOn("remove-member", (event, userArgs: User[]) => {
+  if (userArgs.length === 0) return;
+  const user = userArgs[0];
+  const members = getMembers(getAssetPath);
+  const filteredMembers = members.filter(
+    (member) => member.login !== user.login
+  );
+  saveMembersToFile(getAssetPath, filteredMembers);
+  event.returnValue = true;
+});
+
+ipcMainOn("get-members", (event) => {
+  const members = getMembers(getAssetPath);
+  event.returnValue = members;
 });

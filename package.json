@@ -26,12 +26,15 @@
     "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0",
     "axios": "^1.7.9",
-    "electron-updater": "^6.3.9"
+    "electron-updater": "^6.3.9",
+    "mobx": "^6.13.5",
+    "mobx-react": "^9.2.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/sharedworker": "^0.0.143",
     "@vitejs/plugin-react": "^4.3.3",
     "electron": "^33.2.0",
     "electron-builder": "^24.13.3",

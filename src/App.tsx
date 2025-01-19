@@ -5,14 +5,12 @@ import "@fontsource/roboto/700.css";
 
 import { ProfilePage } from "./components/pages/profile/profilePage";
 import { PageLayout } from "./components/layouts/pageLayout";
-import { TeamPage } from "./components/pages/team/teamPage";
 
 function App() {
   return (
     <div className="App">
       <PageLayout>
         <ProfilePage />
-        {/* <TeamPage /> */}
       </PageLayout>
     </div>
   );

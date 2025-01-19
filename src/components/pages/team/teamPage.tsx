@@ -1,26 +1,11 @@
-import React, { useState } from "react";
+import { FC } from "react";
 import { Box, Grid } from "@mui/material";
 import { TeamMemberList } from "./components";
-import { User } from "@/models/user";
 import { UsersList } from "@/components/widget/usersList";
+import { useTeamPage } from "./hooks";
 
-export const TeamPage: React.FC = () => {
-  const [teamMembers, setTeamMembers] = useState<User[]>([]);
-
-  const handleRemoveMember = (user: User) => {
-    setTeamMembers((prev) =>
-      prev.filter((member) => member.login !== user.login)
-    );
-  };
-
-  const handleAddMember = (user: User) => {
-    const userAlreadyInTeam = teamMembers.find(
-      (member) => member.login === user.login
-    );
-    if (!userAlreadyInTeam) {
-      setTeamMembers((prev) => [user, ...prev]);
-    }
-  };
+export const TeamPage: FC = () => {
+  const { teamMembers, handleRemoveMember, handleAddMember } = useTeamPage();
 
   return (
     <Box mt={4}>

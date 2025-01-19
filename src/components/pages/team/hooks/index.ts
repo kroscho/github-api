@@ -1,0 +1,1 @@
+export { useTeamPage } from "./useTeamPage";

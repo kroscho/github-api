@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "login": "mandollar",
+    "id": 50000005,
+    "node_id": "MDQ6VXNlcjUwMDAwMDA1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/50000005?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/mandollar",
+    "html_url": "https://github.com/mandollar",
+    "followers_url": "https://api.github.com/users/mandollar/followers",
+    "following_url": "https://api.github.com/users/mandollar/following{/other_user}",
+    "gists_url": "https://api.github.com/users/mandollar/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/mandollar/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/mandollar/subscriptions",
+    "organizations_url": "https://api.github.com/users/mandollar/orgs",
+    "repos_url": "https://api.github.com/users/mandollar/repos",
+    "events_url": "https://api.github.com/users/mandollar/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/mandollar/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  {
+    "login": "reneelizotte",
+    "id": 50000006,
+    "node_id": "MDQ6VXNlcjUwMDAwMDA2",
+    "avatar_url": "https://avatars.githubusercontent.com/u/50000006?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/reneelizotte",
+    "html_url": "https://github.com/reneelizotte",
+    "followers_url": "https://api.github.com/users/reneelizotte/followers",
+    "following_url": "https://api.github.com/users/reneelizotte/following{/other_user}",
+    "gists_url": "https://api.github.com/users/reneelizotte/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/reneelizotte/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/reneelizotte/subscriptions",
+    "organizations_url": "https://api.github.com/users/reneelizotte/orgs",
+    "repos_url": "https://api.github.com/users/reneelizotte/repos",
+    "events_url": "https://api.github.com/users/reneelizotte/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/reneelizotte/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  }
+]

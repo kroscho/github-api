@@ -1,6 +1,6 @@
 {
   "name": "vipacs-test",
-  "version": "1.0.0",
+  "version": "2.2.0",
   "main": "dist-electron/main/index.js",
   "description": "Electron Vite React",
   "author": "Nikita",

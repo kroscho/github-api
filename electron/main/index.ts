@@ -3,7 +3,6 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import os from "node:os";
-import { update } from "./update";
 import { SendChannels } from "electron/preload";
 import { getMembers, saveMembersToFile } from "./members";
 import { User } from "@/models/user";
@@ -80,6 +79,7 @@ async function createWindow() {
     // Open devTool if the app is not packaged
     mainWindow.webContents.openDevTools();
   } else {
+    mainWindow.webContents.openDevTools();
     mainWindow.loadFile(indexHtml);
   }
 
@@ -96,9 +96,6 @@ async function createWindow() {
     if (url.startsWith("https:")) shell.openExternal(url);
     return { action: "deny" };
   });
-
-  // Auto update
-  update(mainWindow);
 
   mainWindow.on("close", () => {
     if (teamWindow) {

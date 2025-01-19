@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 const RepositoryCardContainer = styled(Card)({
-  marginBottom: "16px",
+  width: "100%",
 });
 
 interface RepositoryCardProps {

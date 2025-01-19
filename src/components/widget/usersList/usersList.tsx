@@ -1,17 +1,10 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import {
-  Box,
-  List,
-  ListItem,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, List, ListItem, Typography } from "@mui/material";
 import { UserCard } from "@/components/dummies/userCard";
 import { User } from "@/models/user";
 import { getUsers } from "@/api";
 import { UsersSearchBar } from "./usersSearchBar/usersSearchBar";
-import { useSleep } from "@/utils";
+import { ListWithSkeletons } from "@/components/wrapper/listWithSkeletons";
 
 interface UsersListProps {
   onAdd: (user: User) => void;
@@ -23,7 +16,6 @@ export const UsersList: FC<UsersListProps> = ({ onAdd, teamMembers }) => {
   const [searchingError, setSearchingError] = useState(false);
   const [findedUser, setFindedUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const isSleep = useSleep(500);
 
   const handleGetUsers = useCallback(async () => {
     try {
@@ -41,16 +33,6 @@ export const UsersList: FC<UsersListProps> = ({ onAdd, teamMembers }) => {
   useEffect(() => {
     handleGetUsers();
   }, []);
-
-  const isLoading = loading || isSleep;
-
-  const renderLoadingSkeletons = () => (
-    <Stack direction="column" spacing={2}>
-      <Skeleton variant="rounded" height={60} animation="wave" />
-      <Skeleton variant="rounded" height={60} animation="wave" />
-      <Skeleton variant="rounded" height={60} animation="wave" />
-    </Stack>
-  );
 
   const renderUserNotFoundMessage = () => (
     <Typography variant="body2" color="textSecondary">
@@ -77,44 +59,46 @@ export const UsersList: FC<UsersListProps> = ({ onAdd, teamMembers }) => {
         setSearchingError={setSearchingError}
         setFindedUser={setFindedUser}
       />
-      {isLoading ? (
-        renderLoadingSkeletons()
-      ) : searchingError ? (
-        renderUserNotFoundMessage()
-      ) : users.length === 0 ? (
-        renderEmptyMessage()
-      ) : (
+      <ListWithSkeletons isLoading={loading}>
         <>
-          {findedUser ? (
-            <UserCard
-              login={findedUser.login}
-              avatarUrl={findedUser.avatar_url}
-              userUrl={findedUser.html_url}
-              onAdd={
-                findedUserIsTeamMember ? undefined : () => onAdd(findedUser)
-              }
-            />
+          {searchingError ? (
+            renderUserNotFoundMessage()
+          ) : users.length === 0 ? (
+            renderEmptyMessage()
           ) : (
-            <List>
-              {users.map((user) => {
-                const isTeamMember = teamMembers.find(
-                  (member) => member.login === user.login
-                );
-                return (
-                  <ListItem key={user.login} sx={{ padding: "8px 0" }}>
-                    <UserCard
-                      login={user.login}
-                      avatarUrl={user.avatar_url}
-                      userUrl={user.html_url}
-                      onAdd={isTeamMember ? undefined : () => onAdd(user)}
-                    />
-                  </ListItem>
-                );
-              })}
-            </List>
+            <>
+              {findedUser ? (
+                <UserCard
+                  login={findedUser.login}
+                  avatarUrl={findedUser.avatar_url}
+                  userUrl={findedUser.html_url}
+                  onAdd={
+                    findedUserIsTeamMember ? undefined : () => onAdd(findedUser)
+                  }
+                />
+              ) : (
+                <List>
+                  {users.map((user) => {
+                    const isTeamMember = teamMembers.find(
+                      (member) => member.login === user.login
+                    );
+                    return (
+                      <ListItem key={user.login} sx={{ padding: "8px 0" }}>
+                        <UserCard
+                          login={user.login}
+                          avatarUrl={user.avatar_url}
+                          userUrl={user.html_url}
+                          onAdd={isTeamMember ? undefined : () => onAdd(user)}
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              )}
+            </>
           )}
         </>
-      )}
+      </ListWithSkeletons>
     </Box>
   );
 };

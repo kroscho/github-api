@@ -12,16 +12,16 @@ interface RepositoriesItemProps {
 export const RepositoriesItem: FC<RepositoriesItemProps> = ({ repo }) => {
   const [languages, setLanguages] = useState<RepositoryLanguages>({});
 
-  // useEffect(() => {
-  //   const act = async () => {
-  //     const langsResponse = await getRepositoryLanguages({
-  //       userName: MY_GITHUB_USERNAME,
-  //       repoName: repo.name,
-  //     });
-  //     setLanguages(langsResponse);
-  //   };
-  //   act();
-  // }, []);
+  useEffect(() => {
+    const act = async () => {
+      const langsResponse = await getRepositoryLanguages({
+        userName: MY_GITHUB_USERNAME,
+        repoName: repo.name,
+      });
+      setLanguages(langsResponse);
+    };
+    act();
+  }, []);
 
   return (
     <RepositoryCard

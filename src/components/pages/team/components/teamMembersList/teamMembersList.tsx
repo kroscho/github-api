@@ -25,8 +25,8 @@ export const TeamMemberList: React.FC<TeamMemberListProps> = ({
             <ListItem key={member.login} sx={{ padding: "8px 0" }}>
               <UserCard
                 login={member.login}
-                avatarUrl=""
-                userUrl=""
+                avatarUrl={member.avatar_url}
+                userUrl={member.html_url}
                 onDelete={() => onRemove(member)}
               />
             </ListItem>
